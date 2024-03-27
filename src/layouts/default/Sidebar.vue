@@ -71,7 +71,7 @@
 
 </script>
 <template>
- <nav class="fixed top-0 left-0 w-80 h-full border-r space-y-2 sm:w-80">
+ <nav class="fixed top-0 left-0 w-20 h-full border-r space-y-2 sm:w-80">
     <div class="flex flex-col h-full">
         <div class='h-20 flex items-center px-8 mt-10 mb-10'>
             <a href='javascript:void(0)' class='flex-none'>

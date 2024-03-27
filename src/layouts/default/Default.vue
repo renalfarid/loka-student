@@ -3,6 +3,13 @@
   import Sidebar from './Sidebar.vue';
 </script>
 <template>
-    <Sidebar />
-    <DefaultView />
+  <div class="grid md:grid-cols-4 md:grid-cols-4 grid-flow-col auto-cols-max">
+    <div>
+      <Sidebar />
+    </div>
+    <div class="col-span-3">
+      <DefaultView />
+    </div>
+      
+  </div>
 </template>
