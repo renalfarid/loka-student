@@ -28,11 +28,16 @@ export function useAuthServices() {
         }
     }
 
-    async function signUpNewUser(email, password) {
+    async function signUpNewUser(email, password, fullName, phoneNumber) {
         const { data, error } = await supabase.auth.signUp({
           email: email,
           password: password,
           options: {
+            data: {
+              full_name: fullName,
+              phone: phoneNumber,
+              role: 'student'
+            },
             redirectTo: '/confirmation'
           }
         });

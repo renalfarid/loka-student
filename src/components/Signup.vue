@@ -7,8 +7,10 @@
 
   const authServices = useAuthServices()
 
+  const fullName = ref('')
   const userEmail = ref('')
   const userPassword = ref('')
+  const phoneNumber = ref('')
   const isLoading = ref(false)
   const signupError = ref(false)
   const errorMessage = ref('')
@@ -17,7 +19,7 @@
   const handleSignup = async () => {
     try {
       isLoading.value = true;
-      const result = await authServices.signUpNewUser(userEmail.value, userPassword.value);
+      const result = await authServices.signUpNewUser(userEmail.value, userPassword.value, fullName.value, phoneNumber.value);
       processSignupResult(result);
     } catch (error) {
         isLoading.value = false
@@ -41,6 +43,12 @@
         console.error('Signup failed:', result);
     }
   }
+
+  const checkDigit = (event) => {
+  if (event.key.length === 1 && isNaN(event.key)) {
+    event.preventDefault();
+  }
+}
 
   const closeAlert = () => {
     setTimeout(() => {
@@ -80,6 +88,15 @@
             <img width="50" height="50" src="/images/loader.svg" />
         </div>
         <form @submit.prevent="handleSignup()" class="mt-8 space-y-5">
+          <div>
+            <label class="font-medium">Full Name</label>
+            <input v-model="fullName" type="text" required class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"/>
+          </div>
+          <div>
+            <label class="font-medium" name="phoneNumber">Phone Number</label>
+            <input v-model="phoneNumber" type="text" @keydown="checkDigit" required class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"/>
+
+          </div>
           <div>
             <label class="font-medium">Email</label>
             <input v-model="userEmail" type="email" required class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"/>
