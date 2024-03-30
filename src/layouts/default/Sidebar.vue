@@ -1,6 +1,6 @@
 <script setup>
   import { ref } from "vue"
-  //import Logout from "../../components/Logout.vue"
+  import Logout from "../../components/Logout.vue"
   
     const menuItems = ref([
           {
@@ -88,6 +88,7 @@
                 </li>
                 
             </ul>
+            <Logout />
             <div>
                 <div class="py-4 px-4 border-t">
                     <div class="flex items-center gap-x-4">
