@@ -28,7 +28,26 @@ export function useAuthServices() {
         }
     }
 
-    async function signUpNewUser(email, password, fullName, phoneNumber) {
+    const createStudent = async (student_name, phoneNumber) => {
+      
+        const { data, error } = await supabase
+        .from('student')
+        .insert([
+        { student_name: student_name, mobile_number: phoneNumber },
+        ])
+        .select()
+
+        if (error) {
+            console.log("error create student: ", error)
+            return false
+        } else {
+            return true
+        }
+        
+    }
+
+
+    const signUpNewUser = async (email, password, fullName, phoneNumber) => {
         const { data, error } = await supabase.auth.signUp({
           email: email,
           password: password,
@@ -44,10 +63,15 @@ export function useAuthServices() {
         if (error) {
             return error
         } else {
-            return data
+            const createStudent = await createStudent(fullName, phoneNumber)
+            if (createStudent) {
+                return data
+            }
+            
         }
         // Handle the response and errors
       }
+
 
     const checkAuth = () => {
         localStorageKey = localStorage.key(localStorageKey)
