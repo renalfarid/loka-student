@@ -1,4 +1,23 @@
 <script setup>
+  import { onMounted, ref } from 'vue'
+  import { useStudentStore } from '../stores/student'
+  
+  const studentStore = useStudentStore()
+  const studentName = ref('')
+  const studentPhone = ref('')
+  const studentEmail = ref('')
+  
+  const handleProfile = () => {
+    studentStore.fetchStudent()
+    studentEmail.value = studentStore.userMetadata?.email
+    studentName.value = studentStore.userMetadata?.full_name
+    studentPhone.value = studentStore.userMetadata?.phone
+  } 
+
+  onMounted(() => {
+    handleProfile()
+  })
+
 </script>
 <template>
   <section>
@@ -16,7 +35,7 @@
                             Full name
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            John Doe
+                            {{ studentName }}
                         </dd>
                     </div>
                     <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -24,7 +43,7 @@
                             Email address
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            johndoe@example.com
+                            {{ studentEmail }}
                         </dd>
                     </div>
                     <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -32,7 +51,7 @@
                             Phone number
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            (123) 456-7890
+                            {{ studentPhone }}
                         </dd>
                     </div>
                     <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
